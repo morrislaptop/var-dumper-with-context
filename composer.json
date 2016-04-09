@@ -14,5 +14,5 @@
     "autoload": {
         "files": [ "src/dump.php" ],
         "psr-4": { "Morrislaptop\\VarDumperWithContext\\": "src/" }
-    },
+    }
 }
