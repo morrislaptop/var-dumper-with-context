@@ -6,7 +6,7 @@ Using this will show the file and line number which called the dump function. Ve
 Installation
 ------------
 
-    composer require morrislaptop/var-dumper-with-context
+    composer require symfony/var-dumper --dev && composer require morrislaptop/var-dumper-with-context --dev
 
 Usage
 -----
