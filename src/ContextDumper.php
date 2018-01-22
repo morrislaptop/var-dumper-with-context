@@ -22,7 +22,7 @@ trait ContextDumper
 		return str_replace($root, '', $file);
 	}
 
-	public function dump(Data $data, $output = null)
+	public function dump(Data $data, $output = null, array $extraDisplayOptions = array())
     {
     	$line = $this->getLineNumber();
     	$file = $this->getFile();
