@@ -6,28 +6,20 @@ use Symfony\Component\VarDumper\Cloner\Data;
 
 trait ContextDumper
 {
-	protected function getCaller() {
-		return debug_backtrace()[6];
-	}
+    /**
+     * 5 is the magic number by the time is reaches this function.
+     *
+     * @todo Make this smarter (look for the first file not in the /vendor/ directory?)
+     */
+    protected function getCaller() {
+        return debug_backtrace()[4];
+    }
 
-	protected function getLineNumber() {
-		$caller = $this->getCaller();
-		return $caller['line'];
-	}
-
-	protected function getFile() {
-		$caller = $this->getCaller();
-		$file = $caller['file'];
-		$root = realpath(__DIR__ . '/../../../../');
-		return str_replace($root, '', $file);
-	}
-
-	public function dump(Data $data, $output = null, array $extraDisplayOptions = array())
+    public function dump(Data $data, $output = null, array $extraDisplayOptions = array())
     {
-    	$line = $this->getLineNumber();
-    	$file = $this->getFile();
-    	$line = $this->getContext($file, $line);
-    	parent::echoLine($line, 0, '');
+        $caller = $this->getCaller();
+        $line = $this->getContext($caller['file'], $caller['line']);
+        parent::echoLine($line, 0, '');
         parent::dump($data, $output);
     }
 }
