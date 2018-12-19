@@ -13,6 +13,20 @@ Usage
 
 That's it! Simply call `dump()` as you normally would and the file and line number will appear. 
 
+Laravel Note
+-----
+Laravel 5.7 ships with `beyondcode/laravel-dump-server` which will disable this extension. To enable this extension again, simply add the below to your application's `composer.json` and run `php artisan package:discover` again.
+
+```
+    "extra": {
+        "laravel": {
+            "dont-discover": [
+                "beyondcode/laravel-dump-server"
+            ]
+        }
+    },
+```
+
 Resources
 ---------
 
