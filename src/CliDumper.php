@@ -9,7 +9,7 @@ class CliDumper extends BaseDumper implements DumpContextInterface {
 	use ContextDumper;
 
 	public function getContext($file, $line) {
-		return "{$file}:{$line}";
+		return "\n{$file}:{$line}";
 	}
 
 }
