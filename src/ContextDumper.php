@@ -12,8 +12,10 @@ trait ContextDumper
      */
     protected function getCaller()
     {
-        foreach (debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS) as $trace) {
-            if (strpos($trace['file'], '/vendor/') === false ) {
+        $backtrace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS);
+
+        foreach ($backtrace as $trace) {
+            if (!empty($trace['file']) && !empty($trace['line']) && strpos($trace['file'], '/vendor/') === false ) {
                 return $trace;
             }
         }
