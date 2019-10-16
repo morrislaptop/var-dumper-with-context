@@ -7,17 +7,24 @@ use Symfony\Component\VarDumper\Cloner\Data;
 trait ContextDumper
 {
     /**
-     * 5 is the magic number by the time is reaches this function.
-     *
-     * @todo Make this smarter (look for the first file not in the /vendor/ directory?)
+     * Finds the first file NOT in the /vendor/ directory from the
+     * backtrace.
      */
-    protected function getCaller() {
-        return debug_backtrace()[4];
+    protected function getCaller()
+    {
+        foreach (debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS) as $trace) {
+            if (strpos($trace['file'], '/vendor/') === false ) {
+                return $trace;
+            }
+        }
     }
 
     public function dump(Data $data, $output = null, array $extraDisplayOptions = array())
     {
         $caller = $this->getCaller();
+
+        if (! $caller) return parent::dump($data, $output);
+
         $line = $this->getContext($caller['file'], $caller['line']);
         parent::echoLine($line, 0, '');
         parent::dump($data, $output);
